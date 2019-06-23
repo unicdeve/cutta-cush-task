@@ -1,4 +1,4 @@
-# cutta-cush-task
+# cutta-cush-task - Ogunola, Taiwo
 Software Engineering internship challenge
 
 #Files corrupted?
