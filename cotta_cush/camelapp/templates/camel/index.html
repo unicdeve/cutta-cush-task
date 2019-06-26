@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<header>
+    <!-- Slide section -->
+    <div id="slides">
+      <div class="overlay"></div>
+
+      <div class="slides-container">
+        <img src="{% static 'camelapp/img/1.jpg' %}" alt="Image 1">
+        <img src="{% static 'camelapp/img/2.jpg' %}" alt="Image 2">
+        <img src="{% static 'camelapp/img/3.jpg' %}" alt="Image 2">
+      </div>
+
+      <div class="title-message">
+        <div class="heading">
+          <p class="main">Welcome to <span class="cotta-style">Cotta</span><span class="style-and">&</span><span class="cush-style">Cush</span></p>
+          <p class="sub" style="font-size:2.2rem; color: rgb(91, 155, 213);">Software Engineering Internship Challenge</p>
+          <p class="sub">Calculate the maximum bananas you can sell at any distance with your camel(s).</p>
+          <p class="sub typed"></p>
+        </div>
+      </div>
+
+      <div class="slides-navigation">
+        <a href="#" class="next"></a>
+        <a href="#" class="prev"></a>
+      </div>
+    </div>   <!-- Slide section end -->
+  </header>
+
+   <div class="section" id="form-section">
+     <div class="container">
+       <div class="row">
+
+         <div class="col-md-7">
+           <form method="POST"  id="form" class="wow fadeInLeft" data-wow-delay="0.3s">
+             <div class="form-group">
+               <label for="bananas">Total Bananas</label>
+               <input type="number" name="x_bananas" class="form-control" id="x_bananas" required placeholder="Enter the total bananas" min="3000" >
+               <small class="form-text text-muted">Pls enter a valid value, 3000 or more</small>
+             </div>
+  
+             <div class="form-group">
+               <label for="y_distance">Total Distance</label>
+               <input type="number" name="y_distance" class="form-control" id="y_distance" required placeholder="Enter total distance to the market" max="10000" min="1000">
+               <small class="form-text text-muted">Distance is between 1000km to 10,000km</small>
+             </div>
+  
+             <div class="form-group">
+               <label for="z_camels">Camel</label>
+               <input type="number" name="z_camels" class="form-control" id="z_camels" placeholder="How many camel." value="1" disabled='disabled' >
+               <small class="form-text text-muted">You can only enter 1 here i.e for 1 camel!!!</small>
+             </div>
+
+             <div class="form-group">
+                <label for="eats_per_km">Banana eaten per km</label>
+                <input type="number" name="eats_per_km" class="form-control" id="eats_per_km" placeholder="Camel eats 1 banana per km" value="1" disabled='disabled' >
+                <small class="form-text text-muted">Camel eats 1 banana per km</small>
+              </div>
+  
+             <button type="submit" id="submit" class="btn btn-primary submit">Calculate</button>
+           </form>
+  
+         </div>
+           <div class="col-md-4 ml-3 mt-5 answer">
+            <div class="card fadeInRight" style="width: 18rem;">
+              <div class="card-header">
+                <h3>Result:</h3>
+              </div>
+              <div class="card-body">
+                <p class="card-text">Given that you have 1 camels to carry <span class="bananas">{{ x_bananas }}</span> bananas to market of of <span class="distance">{{y_distance }}</span> km.</p>
+                <p class="card-text">You are going to have a maximum of <span class="left">{{ banana_left_for_sale }}</span> bananas left for sale.</p>
+              </div>
+            </div>
+           </div>
+       </div>
+     </div>
+   </div>
+
+   <footer>
+     <div class="copyright-section">
+       <div class="col-md-12 text-center">
+         <p>&copy; Copyright: <a href="https://www.linkedin.com/in/ogunola-taiwo" target="_blank">Taiwo Ogunola</a>, 2019</p>
+       </div>
+     </div>
+   </footer>
+{% endblock %}
+
+{% block domready %}
+  $('.answer').hide();
+  $(document).on('submit', '#form', function(e) {
+    e.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: '{% url "camel:home" %}',
+      data: $('#form').serialize(),
+      success: function(data) {
+        console.log(data)
+
+        $('.answer').show();
+        $('.bananas').html(data[0].x_bananas);
+        $('.distance').html(data[0].y_distance);
+        $('.left').html(data[0].banana_left_for_sale);
+
+        x_bananas: $('#x_bananas').val('')
+        y_distance: $('#y_distance').val('')
+      }
+    })
+  })
+{% endblock %}
+
+
+
+

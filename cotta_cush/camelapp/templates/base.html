@@ -1,0 +1,42 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap and external CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'camelapp/css/superslides.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'camelapp/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'camelapp/css/animate.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'camelapp/css/style.css' %}">
+
+    <title>Cotta&Cush</title>
+  </head>
+  <body>
+
+    {% block content %}
+      
+    {% endblock %}
+   
+
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{% static 'camelapp/js/jquery.min.js' %}"></script>
+    <script src="{% static 'camelapp/js/jquery.superslides.min.js' %}"></script>
+    <script src="{% static 'camelapp/js/typed.min.js' %}"></script>
+    <script src="{% static 'camelapp/js/wow.min.js' %}"></script>
+    <script src="{% static 'camelapp/js/popper.min.js' %}"></script>
+    <script src="{% static 'camelapp/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'camelapp/js/main.js' %}"></script>
+
+    <script>
+      $(document).ready(function(){
+        {% block domready %}
+        {% endblock %}
+      });
+    </script>
+  </body>
+</html>
